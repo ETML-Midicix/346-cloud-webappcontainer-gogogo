@@ -1,8 +1,8 @@
 <?php
-    $servername = "mysql-telegraph.mysql.database.azure.com:3306";
-    $username = "dbadmin";
-    $password = ".MaVoitureEstRouge";
-    $dbname = "db_telegraph";
+    $servername = .$_ENV["DBCONNECTION_SERVERNAME"];
+    $username = .$_ENV["DBCONNECTION_USERNAME"];
+    $password = .$_ENV["DBCONNECTION_PASSWORD"];
+    $dbname = .$_ENV["DBCONNECTION_DBNAME"];
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password, [

@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+
+  php:
+    image: php:fpm
+    volumes:
+      - ./php/:/var/www/html/
+    ports:
+      - "9000:9000"
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: Etml123456789
+      MYSQL_DATABASE: telegraph
+    ports:
+      - "3306:3306"
+
+#docker node update --label-add role=worker <worker1_id>
+#docker node update --label-add role=worker <worker2_id>
+#docker node update --label-add role=worker <worker3_id>
+#docker node update --label-add role=manager <manager1_id>
+
+#docker stack deploy -c docker-compose.yaml your_stack_name

@@ -1,12 +1,13 @@
 <?php
+
+$servername = getenv('DB_HOST');
+$username = getenv('DB_USER');
+$password = getenv('DB_PASSWORD');
+$dbname = getenv('DB_NAME');
+
 // Vérifier que la requête est une requête GET
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header("Access-Control-Allow-Origin: *", "Content-Type: application/json");
-
-    $servername = .$_ENV["GETSAVEMESSAGE_SERVERNAME"];
-    $username = .$_ENV["GETSAVEMESSAGE_USERNAME"];
-    $password = .$_ENV["GETSAVEMESSAGE_PASSWORD"];
-    $dbname = .$_ENV["GETSAVEMESSAGE_DBNAME"];
 
     try {
         // Connexion à la base de données

@@ -1,14 +1,6 @@
-# Creation date: 19.08.2024
-# Created by: CSR
-# Description (quelques indices): 
-# Le service PHP utilise nativement le port 80, ce port 80 est exposé sur le port 8080 de l'hôte.
-# Le nom du conteneur sera php_container
-# Le build sera fait en utilisant le fichier php.dockerfile
-
 version: '3.8'
 
 services:
-
   php:
     build:
       context: ./serveur_php
@@ -18,15 +10,21 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./html:/var/www/html
+      - ./serveur_php/html:/var/www/html
+    environment:
+      DB_HOST: db
+      DB_USER: ${DB_ROOTPASSWORD}
+      DB_PASSWORD: ${DB_ROOTPASSWORD}
+      DB_NAME: ${GETSAVEMESSAGE_DBNAME}
+
 
   db:
     image: mysql:8.0.30
     container_name: db_container
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: db_user
-      MYSQL_PASSWORD: db_user_pass
+      MYSQL_ROOT_PASSWORD: ${DB_ROOTPASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     restart: always
     ports:
       - "6033:3306"
@@ -34,11 +32,10 @@ services:
       - ./serveur_mysql/setup_telegraph_db.sql:/docker-entrypoint-initdb.d/1.sql 
       - dbdata:/var/lib/mysql
 
+
   phpmyadmin:
     image: phpmyadmin:5.2.0
     container_name: pma_container
-    links:
-      - db
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
@@ -50,12 +47,10 @@ services:
   web:
     build:
       context: ./client
-    environment:
-      PMA_HOST: db
     restart: always
     ports:
       - "8085:80"
 
-# The database will be persistent among container restarts.
+
 volumes:
   dbdata:

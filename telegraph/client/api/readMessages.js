@@ -1,7 +1,13 @@
-
 async function readMessages() {
+
     try {
-        const response = await fetch('http://192.168.1.140:8080/api/getMessages.php');
+        const backendUrl = "http://localhost:8080";
+        const response = await fetch(`${backendUrl}/api/getMessages.php`,
+            {
+                method: 'GET',
+                mode: 'no-cors',
+            }
+        );
         if (!response.ok) {
             throw new Error('Erreur lors de la récupération des messages.');
         }

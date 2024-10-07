@@ -1,5 +1,8 @@
+
+
 function sendCharacter(charAscii) {
-    fetch('http://192.168.1.140:8080/api/saveMessage.php', {
+    const backendUrl = "http://localhost:8080";
+    fetch(`${backendUrl}/api/saveMessage.php`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'

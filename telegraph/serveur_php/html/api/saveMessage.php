@@ -1,5 +1,10 @@
 <?php
 
+$servername = getenv('DB_HOST');
+$username = getenv('DB_USER');
+$password = getenv('DB_PASSWORD');
+$dbname = getenv('DB_NAME');
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Access-Control-Allow-Origin: *");
     header("Content-Type: application/json");
@@ -9,10 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $charAscii = $_POST['charAscii'];
         $ipSender = $_SERVER['REMOTE_ADDR'];
 
-        $servername = .$_ENV["GETSAVEMESSAGE_SERVERNAME"];
-        $username = .$_ENV["GETSAVEMESSAGE_USERNAME"];
-        $password = .$_ENV["GETSAVEMESSAGE_PASSWORD"];
-        $dbname = .$_ENV["GETSAVEMESSAGE_DBNAME"];
         $STX = 2;
         $EOT = 4;
 
